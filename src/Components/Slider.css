@@ -1,22 +1,15 @@
-.sliderMenu
-{
-  margin: auto;
-  width: 90%;
+.sliderMenu{
   text-align: center;
-  padding-top: 5%;
 }
 
-.slider
-{
-  padding: 2%;
-  /*padding-right: 2%;*/
-  text-align: center;
-  align: center;
-  /*width: 25%;*/
-
+.slider{
+  padding-left: 1.5px;
+  padding-right: 1.5px;
+  width: 29%;
 }
 
-.sliderBar
-{
-  text-align: center;
+.sliderBar{
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
 }

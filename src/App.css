@@ -1,32 +1,19 @@
-.App
-{
+.App{
   padding-left: 2.5%;
   width: 95%;
   height: 100%;
 }
 
-
-
-.header, .information
-{
-  padding-left: 5%
+hr{
+  border-top: 2px solid black;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
-
-p
-{
+p{
   font-size: 10px;
 }
 
-.content
-{
-  padding-top: 2.5%;
+.report{
   text-align: center;
-}
-
-.report
-{
-  text-align: center;
-  display: inline-table;
-  width: 25%;
-  word-wrap: break-word;
+  width: 80%;
 }
