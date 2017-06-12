@@ -1,0 +1,22 @@
+.sliderMenu
+{
+  margin: auto;
+  width: 90%;
+  text-align: center;
+  padding-top: 5%;
+}
+
+.slider
+{
+  padding: 2%;
+  /*padding-right: 2%;*/
+  text-align: center;
+  align: center;
+  /*width: 25%;*/
+
+}
+
+.sliderBar
+{
+  text-align: center;
+}
