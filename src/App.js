@@ -23,7 +23,7 @@ class App extends Component {
       rooms: ["Master Bedroom", "Basement", "2nd Floor"],
       values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
       totalRent: 800,
-      value: 1,
+      value: "Master Bedroom",
     };
   }
 
@@ -32,8 +32,18 @@ class App extends Component {
 
   render() {
     const style = {
-          margin: 12
+          marginTop: 12,
+          marginBottom: 12
         };
+
+      let roomOptions;
+      if(this.state.rooms){
+        roomOptions = this.state.rooms.map(room => {
+          return (
+            <MenuItem key={room} value={room} primaryText={room}/>
+          )
+        });
+      }
 
     return (
       <div className="App">
@@ -132,9 +142,7 @@ class App extends Component {
                                   value={this.state.value}
                                   onChange={this.handleChange}
                                 >
-                                    <MenuItem value={1} primaryText={this.state.assignedRoom}/>
-                                    <MenuItem value={2} primaryText="Weeknights" />
-                                    <MenuItem value={3} primaryText="Weekends" />
+                                    {roomOptions}
                             </SelectField>
                          </MuiThemeProvider>
                         </div>
