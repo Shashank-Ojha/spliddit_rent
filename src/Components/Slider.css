@@ -9,3 +9,22 @@
   margin-right: auto;
   width: 20%;
 }
+
+div.slider-selection.tick-slider-selection{
+  background: grey;
+}
+.slider-track-high {
+	background: #337ab7;
+}
+
+.slider.highlighted .slider-track-high {
+	background: yellow;
+}
+
+.slider-rangeHighlight {
+	background: red;
+}
+
+div.slider-tick.round{
+  background-image: linear-gradient(to bottom, black 0, grey 100%)
+}

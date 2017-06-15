@@ -22,6 +22,7 @@ class App extends Component {
       assignedCost: 359,
       rooms: ["Master Bedroom", "Basement", "2nd Floor"],
       values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
+      preferences: {"Master Bedroom": 455, "Basement": 83 , "2nd Floor": 462},
       totalRent: 800,
       value: "Master Bedroom",
     };
@@ -72,70 +73,75 @@ class App extends Component {
                   </Row>
 
                   <Row className="show-grid">
-                    <Col xs={6} md={4}>
-                        <h4>Fairness Strategy</h4>
+                    <Col xs={6} md={2}>
+                        <h3>Fairness Strategy</h3>
                         <p> Click on these Properties to see why your result is
                             fair
                         </p>
                         <br/>
-                        <MuiThemeProvider>
-                          <RaisedButton label="Utilitarian" primary={true} style={style} />
-                        </MuiThemeProvider>
-                        <br />
-                        <MuiThemeProvider>
-                          <RaisedButton label="Utility" primary={true} style={style} />
-                        </MuiThemeProvider>
-                        <br />
-                        <MuiThemeProvider>
-                          <RaisedButton label="Maximin" primary={true} style={style} />
-                        </MuiThemeProvider>
+                        <div className="buttonMenu">
+                          <br />
+                          <MuiThemeProvider>
+                            <RaisedButton fullWidth={true} label="Utility" primary={true} style={style} />
+                          </MuiThemeProvider>
+                          <br />
+                          <MuiThemeProvider>
+                            <RaisedButton fullWidth={true} label="Maximin" primary={true} style={style} />
+                          </MuiThemeProvider>
+                        </div>
                     </Col>
 
-                    <Col xs={6} md={4}>
+                    <Col xs={6} md={5}>
                         <div className="report">
-                          <h4>Your Report</h4>
+                          <h3>Your Report</h3>
                           <p> Maximize Your Savings</p>
-                          <br/>
-                          <p> You were assigned the room called
+                          <p className="info"> You were assigned the room called
                               <strong> {this.state.assignedRoom}</strong> because you
                               gained the most.</p>
+                          <br/>
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
+                            preferences={this.state.preferences}
                           />
                         </div>
                     </Col>
 
-                    <Col xs={6} md={4}>
+                    <Col xs={6} md={5}>
                         <div className="report">
-                          <h4>Group Report</h4>
+                          <h3>Group Report</h3>
                           <p> Maximize Group Fairness</p>
-                          <br/>
-                          <p> See how <i>your</i> price or room
+                          <p className="info"> See how <i>your</i> price or room
                               change will affect the group! Pull your
                               slider <strong>up/down</strong> & <strong>change rooms</strong>. </p>
+                          <br/>
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
+                            preferences={this.state.preferences} highlight={this.state.value}
                           />
                         </div>
                     </Col>
                   </Row>
                   <br/>
                   <Row className="show-grid">
-                    <Col xs={6} md={4}>
-                        <h3> Total Rent: ${this.state.totalRent} </h3>
+                    <Col xs={6} md={2}>
+                        <div className="report">
+                          <h3> Total Rent: ${this.state.totalRent} </h3>
+                        </div>
                     </Col>
 
-                    <Col xs={6} md={4}>
-                      <h5> Utility </h5>
-                      <p> You were assigned the room called {this.state.assignedRoom} for ${this.state.assignedCost}.00.
-                          Since you valued the room at $455.00, you gained $96.00. You valued the room called 'Basement'
-                          at $83.00. Since this room costs $136.00, you would have lost $53.00. You valued the room called
-                          '2nd Floor' at $462.00. Since this room costs $466.00, you would have lost $4.00.
-                      </p>
+                    <Col xs={6} md={5}>
+                        <div className="info">
+                          <h5> Utility </h5>
+                          <p> You were assigned the room called {this.state.assignedRoom} for ${this.state.assignedCost}.00.
+                              Since you valued the room at $455.00, you gained $96.00. You valued the room called 'Basement'
+                              at $83.00. Since this room costs $136.00, you would have lost $53.00. You valued the room called
+                              '2nd Floor' at $462.00. Since this room costs $466.00, you would have lost $4.00.
+                          </p>
+                        </div>
                     </Col>
 
-                    <Col xs={6} md={4}>
-                        <div>
+                    <Col xs={6} md={5}>
+                        <div className="info">
                         <MuiThemeProvider>
                           <SelectField
                                   floatingLabelText="Choose Different Room"

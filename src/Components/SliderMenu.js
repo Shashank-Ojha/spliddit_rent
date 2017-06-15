@@ -8,8 +8,18 @@ class SliderMenu extends Component {
       let roomSlots;
       if(this.props.rooms){
         roomSlots = this.props.rooms.map(room => {
+          var highlight = false;
+          if(this.props.highlight == room){
+            // console.log(this.props.highlight);
+            // console.log(room);
+            // console.log(highlight);
+            highlight = true;
+          }
           return (
-            <MySlider key={room} room={room} cost={this.props.values[room]} totalRent={this.props.totalRent} />
+            <MySlider key={room} room={room} cost={this.props.values[room]}
+              totalRent={this.props.totalRent} preference={this.props.preferences[room]}
+              highlight={highlight}
+              />
           )
         });
       }
