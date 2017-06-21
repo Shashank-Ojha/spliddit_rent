@@ -13,7 +13,10 @@ class ButtonMenu extends Component {
   }
 
   makeFunction(name) {
-    let changeActive = (event) => this.setState({activeButton: name})
+    var changeActive = (function(event){
+      this.setState({activeButton: name});
+      this.props.changeMessage(name);
+    });
     return changeActive;
   }
 
@@ -35,28 +38,28 @@ class ButtonMenu extends Component {
             <div>
               <FlatButton
                 label="Utilitarian"
-                onTouchTap={this.makeFunction("Utilitarian")}
+                onTouchTap={this.makeFunction("Utilitarian").bind(this)}
                 backgroundColor={this.decideBGColor("Utilitarian")}
                 hoverColor="#8AA62F"
                 style={style}
               />
               <FlatButton
                 label="Utility"
-                onTouchTap={this.makeFunction("Utility")}
+                onTouchTap={this.makeFunction("Utility").bind(this)}
                 backgroundColor={this.decideBGColor("Utility")}
                 hoverColor="#8AA62F"
                 style={style}
               />
               <FlatButton
                 label="Maximin"
-                onTouchTap={this.makeFunction("Maximin")}
+                onTouchTap={this.makeFunction("Maximin").bind(this)}
                 backgroundColor={this.decideBGColor("Maximin")}
                 hoverColor="#8AA62F"
                 style={style}
               />
               <FlatButton
                 label="Envy-Freeness"
-                onTouchTap={this.makeFunction("Envy-Freeness")}
+                onTouchTap={this.makeFunction("Envy-Freeness").bind(this)}
                 backgroundColor={this.decideBGColor("Envy-Freeness")}
                 hoverColor="#8AA62F"
                 style={style}

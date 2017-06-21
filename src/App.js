@@ -26,10 +26,17 @@ class App extends Component {
       totalRent: 800,
       value: "Master Bedroom",
       selectedIndex: 0,
+      messages: {"Utilitarian":"Message 1", "Utility":"Message 2",
+                 "Maximin":"Message 3"    , "Envy-Freeness":"Message 4"},
+      displayedMessage: "Message 1",
     };
   }
 
   handleChange = (event, index, value) => this.setState({value:value});
+
+  changeMessage(type){
+    this.setState({displayedMessage: this.state.messages[type]});
+  }
 
   render() {
     const style = {
@@ -79,7 +86,7 @@ class App extends Component {
                             fair
                         </p>
                         <br/>
-                        <ButtonMenu />
+                        <ButtonMenu changeMessage={this.changeMessage.bind(this)}/>
                     </Col>
 
                     <Col xs={6} md={5}>
@@ -123,11 +130,7 @@ class App extends Component {
                     <Col xs={6} md={5}>
                         <div className="info">
                           <h5> Utility </h5>
-                          <p> You were assigned the room called {this.state.assignedRoom} for ${this.state.assignedCost}.00.
-                              Since you valued the room at $455.00, you gained $96.00. You valued the room called 'Basement'
-                              at $83.00. Since this room costs $136.00, you would have lost $53.00. You valued the room called
-                              '2nd Floor' at $462.00. Since this room costs $466.00, you would have lost $4.00.
-                          </p>
+                          <p>{this.state.displayedMessage}</p>
                         </div>
                     </Col>
 

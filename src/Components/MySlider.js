@@ -17,7 +17,6 @@ class MySlider extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.cost);
     if (nextProps.cost !== this.state.value) {
       console.log(nextProps.cost);
       console.log(this.state.value);
