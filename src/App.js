@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import SliderMenu from './Components/SliderMenu'
+import SliderMenu from './Components/SliderMenu';
+import ButtonMenu from './Components/ButtonMenu'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -25,16 +25,16 @@ class App extends Component {
       preferences: {"Master Bedroom": 455, "Basement": 83 , "2nd Floor": 462},
       totalRent: 800,
       value: "Master Bedroom",
+      selectedIndex: 0,
     };
   }
 
   handleChange = (event, index, value) => this.setState({value:value});
 
-
   render() {
     const style = {
           marginTop: 12,
-          marginBottom: 12
+          marginBottom: 12,
         };
 
       let roomOptions;
@@ -64,7 +64,7 @@ class App extends Component {
                   <Row className="show-grid">
                     <Col xs={12} md={8}>
                       <h3> Divison Algorithms for Rent </h3>
-                      <p> Spliddits rent calculator helps roommates to fairly share rent when moving into
+                      <p> Splidditss rent calculator helps roommates to fairly share rent when moving into
                           a new house or apartment. This is especially useful when bedrooms differ in
                           size, closet space, bathrooms, and more.
                       </p>
@@ -74,21 +74,12 @@ class App extends Component {
 
                   <Row className="show-grid">
                     <Col xs={6} md={2}>
-                        <h3>Fairness Strategy</h3>
+                        <h3>Fairness Properties</h3>
                         <p> Click on these Properties to see why your result is
                             fair
                         </p>
                         <br/>
-                        <div className="buttonMenu">
-                          <br />
-                          <MuiThemeProvider>
-                            <RaisedButton fullWidth={true} label="Utility" primary={true} style={style} />
-                          </MuiThemeProvider>
-                          <br />
-                          <MuiThemeProvider>
-                            <RaisedButton fullWidth={true} label="Maximin" primary={true} style={style} />
-                          </MuiThemeProvider>
-                        </div>
+                        <ButtonMenu />
                     </Col>
 
                     <Col xs={6} md={5}>

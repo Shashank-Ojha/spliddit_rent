@@ -14,7 +14,7 @@ p{
 }
 
 .buttonMenu{
-  width: 80%;
+  display: block;
 }
 .info{
   margin-left: auto;

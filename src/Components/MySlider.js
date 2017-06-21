@@ -14,7 +14,6 @@ class MySlider extends Component {
 
   handleSlider = (event) => {
     this.setState({value: event.target.value});
-    this.render();
   };
 
   format(val){
@@ -26,6 +25,7 @@ class MySlider extends Component {
     if(this.props.highlight){
       className = "slider highlighted";
     }
+    console.log(this.state.value);
     return (
       <div className={className}>
       <ReactBootstrapSlider
