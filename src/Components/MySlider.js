@@ -13,19 +13,28 @@ class MySlider extends Component {
   }
 
   handleSlider = (event) => {
-    this.setState({value: event.target.value});
+    this.props.update(this.props.room, event.target.value);
   };
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.cost);
+    if (nextProps.cost !== this.state.value) {
+      console.log(nextProps.cost);
+      console.log(this.state.value);
+      this.setState({value: nextProps.cost });
+    }
+  }
 
   format(val){
     return "$"+val;
   }
 
   render() {
+    // console.log(this.state.value);
     var className = "slider";
     if(this.props.highlight){
       className = "slider highlighted";
     }
-    console.log(this.state.value);
     return (
       <div className={className}>
       <ReactBootstrapSlider
