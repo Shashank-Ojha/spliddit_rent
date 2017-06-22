@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
+import ReactBootstrapSliderFixed from './ReactBootstrapSliderFixed';
 import './Slider.css';
 
 
@@ -8,7 +8,8 @@ class MySlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.cost
+      value: this.props.cost,
+      range: [{ "start": this.props.cost, "end": this.props.preference}],
     };
   }
 
@@ -20,7 +21,9 @@ class MySlider extends Component {
     if (nextProps.cost !== this.state.value) {
       console.log(nextProps.cost);
       console.log(this.state.value);
-      this.setState({value: nextProps.cost });
+      var newRange = [{"start": nextProps.cost, "end": this.props.preference}]
+      console.log(newRange);
+      this.setState({value: nextProps.cost, range: newRange});
     }
   }
 
@@ -36,18 +39,20 @@ class MySlider extends Component {
     }
     return (
       <div className={className}>
-      <ReactBootstrapSlider
+      <ReactBootstrapSliderFixed
           value={this.state.value}
           change={this.handleSlider}
           step={1}
           orientation="vertical"
           reversed={true}
+          // min={0}
+          // max={800}
           ticks= {[0, this.props.preference, this.props.totalRent]}
           ticks_labels={["$0", "", "$"+this.props.totalRent]}
           ticks_snap_bounds={30}
           tooltip="always"
           formatter = {this.format}
-          rangeHighlights={[{ "start": this.state.value, "end": this.props.preference}]}
+          rangeHighlights={this.state.range}
           />
         <br/>
         <br/>
