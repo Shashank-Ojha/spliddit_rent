@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import {fullWhite} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class ButtonMenu extends Component {
@@ -21,9 +20,10 @@ class ButtonMenu extends Component {
   }
 
   decideBGColor(name){
-    if(name == this.state.activeButton)
+    if(name == this.state.activeButton){
       return "#a4c639";
-    return ""
+    }
+    return "";
   }
 
   render() {

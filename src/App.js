@@ -8,7 +8,6 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
-
 import './App.css';
 import './index.css';
 
@@ -21,7 +20,7 @@ class App extends Component {
       assignedRoom: "Master Bedroom",
       assignedCost: 359,
       rooms: ["Master Bedroom", "Basement", "2nd Floor"],
-      values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
+      values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260}, // Algorithm output
       preferences: {"Master Bedroom": 455, "Basement": 83 , "2nd Floor": 462},
       totalRent: 800,
       value: "Master Bedroom",
@@ -99,7 +98,7 @@ class App extends Component {
                           <br/>
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
-                            preferences={this.state.preferences}
+                            preferences={this.state.preferences} 
                           />
                         </div>
                     </Col>
@@ -119,7 +118,7 @@ class App extends Component {
                         </div>
                     </Col>
                   </Row>
-                  <br/>
+
                   <Row className="show-grid">
                     <Col xs={6} md={2}>
                         <div className="report">

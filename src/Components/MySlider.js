@@ -19,10 +19,10 @@ class MySlider extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.cost !== this.state.value) {
-      console.log(nextProps.cost);
-      console.log(this.state.value);
+      // console.log(nextProps.cost);
+      // console.log(this.state.value);
       var newRange = [{"start": nextProps.cost, "end": this.props.preference}]
-      console.log(newRange);
+      //console.log(newRange);
       this.setState({value: nextProps.cost, range: newRange});
     }
   }
@@ -32,7 +32,6 @@ class MySlider extends Component {
   }
 
   render() {
-    // console.log(this.state.value);
     var className = "slider";
     if(this.props.highlight){
       className = "slider highlighted";
