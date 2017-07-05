@@ -1,0 +1,578 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <title>New Share Rent Instance - Spliddit</title>
+    <link href="./assets/app.css" media="all" rel="stylesheet" type="text/css" />
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+    <script src="./assets/app.js" type="text/javascript"></script>
+
+    <!--[if !IE]> -->
+    <script src="./assets/modern.min.js" type="text/javascript"></script>
+    <!-- <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/assets/legacy/legacy.min-fc84d4940f21d232d4f440973eabff24.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Enter a list of roommates, a list of bedrooms, and the monthly rent to get started. We&#x27;ll then send everyone a link where they specify how much they would pay to live in each bedroom.">
+    <meta name="viewport" content="width=device-width">
+    <link href="./assets/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <script type="text/javascript">var participants = 0;
+var resources = 0;
+
+$(document).ready(function() {
+  participants = 2;
+  resources = 2;
+
+  $('#contact_method').change(function() {
+    check_email_state();
+  });
+  $('input').blur(function() {
+    $(this).removeClass("error");
+  });
+});
+
+// enables or disables instance fields based on whether the user wants seperate passwords
+function check_email_state() {
+  if ($('#contact_method').val() == 'noemail') {
+    $('.email-field').prop('disabled', true);
+  } else if ($('#contact_method').val() == 'email') {
+    $('.email-field').prop('disabled', false);
+  }
+}
+
+function add_agent() {
+  participants += 1;
+  $('#agents_ct').val(participants);
+  $('#agents').append(
+    '<tr id="agent-'+(participants-1)+'">' +
+      '<td data-title="Name">' +
+        '<input id="names_'+(participants-1)+'" name="names['+(participants-1)+']" type="text">' +
+      '</td>' +
+      '<td data-title="Email">' +
+        '<input class="email-field" id="emails_'+(participants-1)+'" name="emails['+(participants-1)+']" type="text">' +
+      '</td>' +
+      '<td id="agent-delete-'+(participants-1)+'">' +
+        '<a class="btn-remove" href="#" title="Remove" onclick="remove_agent('+(participants-1)+'); return false">Remove</a>' +
+      '</td>' +
+    '</tr>');
+  check_email_state();
+}
+
+function remove_agent(id) {
+  $("#agent-"+id).remove();
+  for (var i=id+1; i<participants; i++) {
+    $("#agent-"+i).attr('id','agent-'+(i-1));
+    $("#names_"+i).attr('id','names_'+(i-1)).attr('name','names['+(i-1)+']');
+    $("#emails_"+i).attr('id','emails_'+(i-1)).attr('name','emails['+(i-1)+']');
+    $("#agent-delete-"+i).html("<a class='btn-remove' href='#' title='Remove' onclick='remove_agent("+(i-1)+");return false'>Remove</a>").attr('id','agent-delete-'+(i-1));
+  }
+  participants--;
+  $('#agents_ct').val(participants);
+}
+
+function add_resource() {
+  resources += 1;
+  options = '';
+    options += '<option value = "single">Single</option>';
+    options += '<option value = "double">Double</option>';
+    options += '<option value = "triple">Triple</option>';
+    options += '<option value = "quad">Quad</option>';
+  $('#resources_ct').val(resources);
+  $('#resources').append(
+    '<tr id="resource-'+(resources-1)+'">' +
+      '<td data-title="Name">' +
+        '<input maxlength="50" id="rnames_' + (resources-1) + '" name="rnames[' + (resources-1) + ']" type="text">' +
+      '</td>' +
+      '<td>' +
+        '<select id="types_' + (resources-1) + '" name="types[' + (resources-1) + ']">' +
+          options +
+        '</select>' +
+      '</td>' +
+      '<td data-title="Description" class="description-field">' +
+        '<textarea maxlength="200" id="descriptions_'+(resources-1)+'" name="descriptions['+(resources-1)+']"></textarea>' +
+      '</td>' +
+      '<td id="resource-delete-'+(resources-1)+'">' +
+        '<a class="btn-remove" href="#" title="Remove" onclick="remove_resource('+(resources-1)+'); return false">Remove</a>' +
+      '</td>' +
+    '</tr>');
+}
+
+function remove_resource(id) {
+  $("#resource-"+id).remove();
+  for (var i=id+1; i<resources; i++) {
+    $("#resource-"+i).attr('id','resource-'+(i-1));
+    $("#descriptions_"+i).attr('id','descriptions_'+(i-1)).attr('name','descriptions['+(i-1)+']');
+    $("#quantities_"+i).attr('id','quantities_'+(i-1)).attr('name','quantities['+(i-1)+']');
+    $("#types_"+i).attr('id','types_'+(i-1)).attr('name','types['+(i-1)+']');
+    $("#rnames_"+i).attr('id','rnames_'+(i-1)).attr('name','rnames['+(i-1)+']');
+    $("#resource-delete-"+i).html("<a class='btn-remove' href='#' onclick='remove_resource("+(i-1)+");return false'>Remove</a>").attr('id','resource-delete-'+(i-1));
+  }
+  resources--;
+  $('#resources_ct').val(resources);
+}
+
+// Basic email regex
+function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  if( !emailReg.test( $email ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+// returns true if array contains duplicate values
+function containsDuplicates(array) {
+  var valuesSoFar = {};
+  for (var i = 0; i < array.length; ++i) {
+      if (!(array[i] === "")) {
+        var value = array[i];
+        if (Object.prototype.hasOwnProperty.call(valuesSoFar, value)) {
+            return true;
+        }
+        valuesSoFar[value] = true;
+      }
+  }
+  return false;
+}
+
+// returns true if the user decided to provide emails
+function checkEmails() {
+  if ($("#contact_method").val() == "email") {
+    $('#contact_method').removeClass('error');
+    return true;
+  } else if ($("#contact_method").val() == "noemail") {
+    $('#contact_method').removeClass('error');
+  } else {
+    $('#contact_method').addClass('error');
+  }
+  return false;
+}
+
+// basic participant checks (name length, email length, no duplicates)
+function validateParticipants() {
+  var check_emails = checkEmails();
+  var valid = true;
+  //check that the names/emails are reasonable
+  var names = new Array();
+  var emails = new Array();
+  for (var i=0; i<participants; i++) {
+    names[i] = $("#names_"+i).val();
+    emails[i] = $("#emails_"+i).val();
+
+    if (names[i].length < 1 || names[i].length > 100) {
+      $('#names_'+i).addClass('error');
+      valid = false;
+    } else {
+      $('#names_'+i).removeClass('error');
+    }
+    if (check_emails && (emails[i].length < 1 || emails[i].length > 100 || !validateEmail(emails[i]))) {
+      $('#emails_'+i).addClass('error');
+      valid = false;
+    } else {
+      $('#emails_'+i).removeClass('error');
+    }
+  }
+
+  if (containsDuplicates(names)) {
+    $("#participants-error").append("<div class='alert alert-error'>Please make sure all names are unique, using last names if necessary.</div>");
+    valid = false;
+  }
+  if (check_emails && containsDuplicates(emails)) {
+    $("#participants-error").append("<div class='alert alert-error'>All emails must be unique.</div>");
+    valid = false;
+  }
+  return valid;
+}
+
+function validateAdminEmail() {
+  var admin_email = $("#admin_email").val();
+  if (admin_email.length > 100 || (admin_email.length >= 1 && !validateEmail(admin_email))) {
+    $("#admin_email").addClass('error');
+    return false;
+  } else {
+    $("#admin_email").removeClass('error');
+    return true;
+  }
+}
+
+// called when submit button is pressed
+function validateForm() {
+  $(".error-msg").html("");
+  var submit = true;
+  if (!validateHelper()) submit = false;
+  if (!validateInstanceName()) submit = false;
+  if (!validateParticipants()) submit = false;
+  if (!validateAdminEmail()) submit = false;
+  if (!submit) {
+    $("#overall-error").html("There were some errors in your submission. Please correct them and resubmit.");
+  }
+  return submit;
+}
+
+function validateInstanceName() {
+  if ($("#instance_name").val().length > 50 || $("#instance_name").val().length < 1) {
+    $('#instance_name').addClass('error');
+    return false;
+  } else {
+    $('#instance_name').removeClass('error');
+    return true;
+  }
+}</script><script type="text/javascript">//validation specific to splitting rent
+function validateHelper() {
+  var valid = true;
+
+  //check that the rent is reasonable
+  if (!$.isNumeric($("#rent").val())) {
+    $('#rent').addClass('error');
+    valid = false;
+  } else {
+    var rent = parseInt($("#rent").val());
+    if (rent < 10 || rent > 1000000) {
+      $('#rent').addClass('error');
+      valid = false;
+    } else {
+       $('#rent').removeClass('error');
+    }
+  }
+
+  //need 2-15 people
+  if (participants < 2 || participants > 15) {
+    $("#participants-error").append("<div class='alert alert-error'>There must be between 2 and 15 roommates.</div>");
+    valid = false;
+  }
+
+  if (!validateRooms()) valid = false;
+
+  return valid;
+}
+
+// checks for duplicate room names, and appropriate # of beds
+function validateRooms() {
+  var valid = true;
+
+  //check that the room names/descriptions are reasonable
+  var rnames = new Array();
+  var descriptions = new Array();
+  var beds = 0;
+  for (var i=0; i<resources; i++) {
+    rnames[i] = $("#rnames_"+i).val();
+    descriptions[i] = $("#descriptions_"+i).val();
+
+    if (rnames[i].length < 1 || rnames[i].length > 50) {
+      valid = false;
+      $('#rnames_'+i).addClass('error');
+    } else {
+      $('#rnames_'+i).removeClass('error');
+    }
+    if (descriptions[i].length > 200) {
+      valid = false;
+      $('#descriptions_'+i).addClass('error');
+    } else {
+      $('#descriptions_'+i).removeClass('error');
+    }
+    $('#types_'+i).removeClass('error');
+    switch($("#types_"+i).val()) {
+      case "single":
+        beds += 1;
+        break;
+      case "double":
+        beds += 2;
+        break;
+      case "triple":
+        beds += 3;
+        break;
+      case "quad":
+        beds += 4;
+        break;
+      default:
+        $('#types_'+i).addClass('error');
+        valid = false;
+        break;
+    }
+  }
+  if (containsDuplicates(rnames)) {
+    $("#resources-error").append("<div class='alert alert-error'>There are duplicate room names.</div>");
+    valid = false;
+  }
+
+  //check that #agents = #beds
+  if (beds != participants) {
+    $("#resources-error").append("<div class='alert alert-error'>There are "+beds+" beds but "+participants+" roommates!</br>");
+    valid = false;
+  }
+  return valid;
+}
+</script>
+    <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+  <body>
+    <div class="mobile-header">
+    <a id="menu-mobile" href="#sidr">Menu</a>
+    <a id="logo-mobile" href="/"><img alt="Logo-mobile" height="24" src="./assets/img/logo-mobile.png" width="70" /></a>
+</div>
+
+<div id="sidr">
+    <ul class="mobile-nav">
+        <li><a href="http://www.spliddit.org/">Home</a></li></li>
+        <li><a href="http://www.spliddit.org/apps/rent">Share Rent</a></li>
+        <li><a href="http://www.spliddit.org/apps/fare">Split Fare</a></li>
+        <li><a href="http://www.spliddit.org/apps/credit">Assign Credit</a></li>
+        <li><a href="http://www.spliddit.org/apps/goods">Divide Goods</a></li>
+        <li><a href="http://www.spliddit.org/apps/tasks">Distribute Tasks</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/feedback">Feedback</a></li>
+    </ul>
+</div><!--#sidr-->
+
+<div class="site">
+
+<header class="site-header">
+    <div class="wrap">
+        <div class="logo">
+            <a href="http://www.spliddit.org/">
+                <img alt="Spliddit" height="83" src="./assets/img/spliddit_logo.png" width="240" />
+            </a>
+        </div><!--.logo-->
+        <nav class="header-nav">
+            <ul class="nav-set-2">
+                <li><a href="/about">About</a></li>
+                <li><a href="/feedback">Feedback</a></li>
+            </ul>
+            <ul class="nav-set-1">
+              <li class="divide">Divide: </li>
+              <li><a href="http://www.spliddit.org/apps/rent">Rent</a></li>
+              <li><a href="http://www.spliddit.org/apps/fare">Fare</a></li>
+              <li><a href="http://www.spliddit.org/apps/credit">Credit</a></li>
+              <li><a href="http://www.spliddit.org/apps/goods">Goods</a></li>
+              <li><a href="http://www.spliddit.org/apps/tasks">Tasks</a></li>
+            </ul>
+        </nav>
+    </div><!--.wrap-->
+</header><!--.site-header-->
+
+
+
+<div class="innerpage-banner">
+    <div class="wrap">
+        <div class="page-title">
+            <h1>Share Rent</h1>
+        </div>
+        <div class="banner-image">
+          <img alt="Share rent and assign rooms" height="246" src="./assets/img/splitting-rent.png" width="250" />
+        </div>
+    </div><!--.wrap-->
+</div><!--.innerpage-banner-->
+
+<div class="page-content">
+  <div class="wrap">
+    <form accept-charset="UTF-8" action="/apps/rent/create" autocomplete="off" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="yh85GyirSS8pX6Cv+RraHfAiU5JjePRu8N5mGzX9qrE=" /></div><div id="a_comment_body_hp_1498681972"><style media="screen" scoped="scoped" type="text/css">#a_comment_body_hp_1498681972 { display:none; }</style><label for="a_comment_body">Do not fill in this
+    field</label><input id="a_comment_body" name="a_comment_body" type="text" /></div>
+      <div class="form-row">
+        <div class="form-row">
+          <h2 style="margin-bottom:0">Apartment/House Name</h2>
+          <input class="ipt-small" id="instance_name" maxlength="50" name="instance_name" type="text" />
+        </div>
+        <div class="form-row">
+          <h2 style="margin-bottom:0">Monthly Rent</h2>
+          <span class="addon">
+            <select id="currency" name="currency"><option value="usd">$</option>
+<option value="euro">€</option>
+<option value="gbp">£</option>
+<option value="jpy">¥</option>
+<option value="ils">₪</option></select>
+          </span>
+          <input id="rent" maxlength="7" name="rent" style="width:100px; text-align:right" type="text" />
+          <span class="addon">.00</span>
+        </div>
+      </div>
+      <div class="form-row">
+  <h2 style="margin-bottom:0">Roommates</h2>
+  <p class="description">
+    If you're able to provide email addresses for each participant, we'll send a private link to each for submitting evaluations. Otherwise, we'll generate a single link that you can share with everyone however you'd like.
+  </p>
+  <select id="contact_method" name="contact_method"><option value="email">I&#x27;ll fill in the email addresses.</option>
+<option value="noemail">I choose not to supply email addresses.</option></select>
+  <div>
+    <p id="participants-error" class="error-msg"></p>
+  </div>
+  <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody id="agents">
+          <tr id="agent-0">
+              <td data-title="Name">
+                <input id="names_0" name="names[0]" type="text" />
+              </td>
+              <td data-title="Email">
+                <input class="email-field" id="emails_0" name="emails[0]" type="text" />
+              </td>
+              <td id = "agent-delete-0">
+                <a class="btn-remove" href="#" title="Remove" onclick = "remove_agent(0); return false">Remove</a>
+              </td>
+          </tr>
+          <tr id="agent-1">
+              <td data-title="Name">
+                <input id="names_1" name="names[1]" type="text" />
+              </td>
+              <td data-title="Email">
+                <input class="email-field" id="emails_1" name="emails[1]" type="text" />
+              </td>
+              <td id = "agent-delete-1">
+                <a class="btn-remove" href="#" title="Remove" onclick = "remove_agent(1); return false">Remove</a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <input id="agents_ct" name="agents_ct" type="hidden" value="2" />
+  <a href = "#" onclick = "add_agent(); return false;">Add Person...</a>
+  <br />
+</div>
+      <br />
+      <div class="form-row">
+  <h2 style="margin-bottom:0">Rooms</h2>
+  <div>
+    <p id="resources-error" class="error-msg"></p>
+  </div>
+  <table>
+      <thead>
+          <tr>
+              <th>Room Name</th>
+              <th>Type</th>
+
+              <th class = "description-field">Description (Optional)</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody id="resources">
+          <tr id="resource-0">
+              <td data-title="Name">
+                <input id="rnames_0" maxlength="50" name="rnames[0]" type="text" />
+              </td>
+                <td>
+                  <select id="types_0" name="types[0]"><option value="single">Single</option>
+<option value="double">Double</option>
+<option value="triple">Triple</option>
+<option value="quad">Quad</option></select>
+                </td>
+                <td data-title="Description" class = "description-field">
+                  <textarea id="descriptions_0" maxlength="200" name="descriptions[0]">
+</textarea>
+                </td>
+              <td id = "resource-delete-0">
+                <a class="btn-remove" href="#" title="Remove" onclick = "remove_resource(0); return false">Remove</a>
+              </td>
+          </tr>
+          <tr id="resource-1">
+              <td data-title="Name">
+                <input id="rnames_1" maxlength="50" name="rnames[1]" type="text" />
+              </td>
+                <td>
+                  <select id="types_1" name="types[1]"><option value="single">Single</option>
+<option value="double">Double</option>
+<option value="triple">Triple</option>
+<option value="quad">Quad</option></select>
+                </td>
+                <td data-title="Description" class = "description-field">
+                  <textarea id="descriptions_1" maxlength="200" name="descriptions[1]">
+</textarea>
+                </td>
+              <td id = "resource-delete-1">
+                <a class="btn-remove" href="#" title="Remove" onclick = "remove_resource(1); return false">Remove</a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <input id="resources_ct" name="resources_ct" type="hidden" value="2" />
+  <a href = "#" onclick = "add_resource(); return false;">Add Room...</a>
+</div>
+      <br />
+      <div class="form-row">
+  <h2 style="margin-bottom:0">Email Results (Optional)</h2>
+  <p class="description">
+    Enter an email address and we'll forward the results of this app to the address. Whether or not you supply an address below, all participants will also have the option of receiving the results via email.
+  </p>
+  <input class="ipt-small" id="admin_email" maxlength="50" name="admin_email" type="text" />
+</div>
+      <input class="btn" name="commit" onclick="return validateForm();" type="submit" value="   Create   " />
+<div>
+  <p id="overall-error" class="error-msg error-text"></p>
+</div>
+</form>  </div>
+</div>
+
+
+
+    <footer class="site-footer">
+    <div class="wrap">
+        <div class="primary-footer">
+            <div class="footer-logo">
+                <a href="http://www.spliddit.org/">
+                    <img alt="Spliddit" height="63" src="./assets/img/footer-logo.png" width="180" />
+                </a>
+            </div><!--.footer-logo-->
+            <div class="footer-nav">
+                <ul class="nav-set-1">
+                    <li><a href="http://www.spliddit.org/apps/rent">Share Rent</a></li>
+                    <li><a href="http://www.spliddit.org/apps/fare">Split Fare</a></li>
+                    <li><a href="http://www.spliddit.org/apps/credit">Assign Credit</a></li>
+                    <li><a href="http://www.spliddit.org/apps/goods">Divide Goods</a></li>
+                    <li><a href="http://www.spliddit.org/apps/tasks">Distribute Tasks</a></li>
+                </ul>
+                <ul class="nav-set-2">
+                  <li><a href="/about">About</a></li>
+                  <li><a href="/feedback">Feedback</a></li>
+                </ul>
+            </div><!--.footer-nav-->
+            <div class="social">
+                <ul>
+                    <li class="share"><span>Follow</span></li>
+                    <li class="fb"><a target="_blank" href="https://www.facebook.com/SplidditOrg">Facebook</a></li>
+                    <li class="tw"><a target="_blank" href="http://twitter.com/Spliddit">Twitter</a></li>
+                    <li class="gp"><a target="_blank" href="https://plus.google.com/102161671080031579471/posts">Google Plus</a></li>
+                    <br><br><br><br>
+                    <div id = "mailing-list">
+                        <li class="share"><span>Newsletter</span></li>
+                        <br><br>
+                        <div style="width:100%">
+                            <li style="width:80%"><input id="ipt-mailing-list" maxlength="50" name="mailing_list_email" placeholder="Email" style="width: 100%" type="text" /></li>
+                            <li style="width:20%"><input id="btn-mailing-list" name="commit" onclick="return addToMailingList()" style="width: 100%" type="submit" value="Go" /></li>
+                        </div>
+                    </div>
+                </ul>
+            </div><!--.social-->
+        </div><!--.primary-footer-->
+        <div class="credits">
+            <p class="copyright">
+                &copy; 2017 <a href = "http://www.cs.cmu.edu/~arielpro/" target="_blank">Ariel Procaccia</a> and <a href = "http://jagoldman.com" target="_blank">Jonathan Goldman</a>
+            </p>
+            <p class="imagebox">
+                <a href="http://imagebox.com" target="_blank">Site designed by Imagebox</a>
+            </p>
+        </div><!--.credits-->
+    </div><!--.wrap-->
+</footer><!--.site-footer-->
+</div><!--.site-->
+  </body>
+
+</html>
