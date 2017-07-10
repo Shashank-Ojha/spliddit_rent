@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SliderMenu from './Components/SliderMenu';
-import ButtonMenu from './Components/ButtonMenu'
+import ButtonMenu from './Components/ButtonMenu';
+import MultipleView from './Components/MultipleView';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,6 +29,8 @@ class App extends Component {
       messages: {"Utilitarian":"Message 1", "Utility":"Message 2",
                  "Maximin":"Message 3"    , "Envy-Freeness":"Message 4"},
       displayedMessage: "Message 1",
+
+      viewMode: "Preferences for Their Assignment"
     };
   }
 
@@ -35,6 +38,10 @@ class App extends Component {
 
   changeMessage(type){
     this.setState({displayedMessage: this.state.messages[type]});
+  }
+
+  changeViewMode(name){
+    this.setState({viewMode: name});
   }
 
   render() {
@@ -78,6 +85,23 @@ class App extends Component {
                     <Col xs={6} md={4}></Col>
                   </Row>
 
+
+                  <Row className="show-grid">
+                    <Col xs={6} md={3}>
+                      <h3>Breakdown of Results</h3>
+                      <p> The graph below shows the algorithm results and room
+                      preferences for both you and the group
+                      </p>
+                    </Col>
+
+                    <Col xs={6} md={9}>
+                        <div className="multipleView">
+                          <MultipleView viewMode={this.changeViewMode.bind(this)}/>
+                        </div>
+                    </Col>
+                  </Row>
+
+
                   <Row className="show-grid">
                     <Col xs={6} md={2}>
                         <h3>Fairness Properties</h3>
@@ -98,7 +122,7 @@ class App extends Component {
                           <br/>
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
-                            preferences={this.state.preferences} 
+                            preferences={this.state.preferences} viewMode={this.state.viewMode}
                           />
                         </div>
                     </Col>
@@ -114,10 +138,12 @@ class App extends Component {
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
                             preferences={this.state.preferences} highlight={this.state.value}
+                            viewMode={this.state.viewMode}
                           />
                         </div>
                     </Col>
                   </Row>
+
 
                   <Row className="show-grid">
                     <Col xs={6} md={2}>

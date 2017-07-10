@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactBootstrapSliderFixed from './ReactBootstrapSliderFixed';
-import './Slider.css';
+import style from './Slider.css';
 
 
 class MySlider extends Component {
@@ -10,6 +10,8 @@ class MySlider extends Component {
     this.state = {
       value: this.props.cost,
       range: [{ "start": this.props.cost, "end": this.props.preference}],
+      ticks: [0, this.props.preference, this.props.totalRent],
+      ticks_labels: ["$0", "", "$"+this.props.totalRent]
     };
   }
 
@@ -27,6 +29,29 @@ class MySlider extends Component {
     }
   }
 
+  alterViewModeTicks(viewMode){
+    var a;
+    if (viewMode === "Preferences for Their Assignment"){
+      a = this.state.ticks;
+      // console.log(a);
+      return a;
+    }
+    else {
+      a = this.state.ticks[0];
+      // console.log(a);
+      return ([a]);
+    }
+  }
+
+  alterViewModeLabels(viewMode){
+    if (viewMode === "Preferences for Their Assignment"){
+      return this.state.ticks_labels;
+    }
+    else {
+      return ([this.state.ticks_labels[0]]);
+    }
+  }
+
   format(val){
     return "$"+val;
   }
@@ -36,6 +61,9 @@ class MySlider extends Component {
     if(this.props.highlight){
       className = "slider highlighted";
     }
+    console.log(this.props.viewMode);
+    console.log(this.alterViewModeTicks(this.props.viewMode));
+    console.log(this.alterViewModeLabels(this.props.viewMode));
     return (
       <div className={className}>
       <ReactBootstrapSliderFixed
@@ -44,14 +72,13 @@ class MySlider extends Component {
           step={1}
           orientation="vertical"
           reversed={true}
-          // min={0}
-          // max={800}
-          ticks= {[0, this.props.preference, this.props.totalRent]}
-          ticks_labels={["$0", "", "$"+this.props.totalRent]}
+          ticks={this.alterViewModeTicks(this.props.viewMode)}
+          ticks_labels={this.alterViewModeLabels(this.props.viewMode)}
           ticks_snap_bounds={30}
           tooltip="always"
           formatter = {this.format}
           rangeHighlights={this.state.range}
+          style={style}
           />
         <br/>
         <br/>

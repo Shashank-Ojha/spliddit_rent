@@ -8,13 +8,14 @@ class SliderMenu extends Component {
     super(props);
     this.state = {
       values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
+      viewMode: this.props.viewMode
       // algorithm output, can be adjusted
     };
   }
 
   reachLimit(){
     var currentPriceAssignment = this.state.values;
-    console.log(this.state.values);
+    // console.log(this.state.values);
     for (var key in this.state.values){
       if (currentPriceAssignment[key] >= 800){
         return [1, key];
@@ -25,24 +26,14 @@ class SliderMenu extends Component {
     }
     return [0, key];
   }
-
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.viewMode !== this.state.viewMode) {
+      this.setState({ viewMode: nextProps.viewMode });
+    }
+  }
   updateValues(room, newVal){
     // room is the slider that is currently being moved
-
-
-    // // in this version of code, some slider value might become negative
-    // var oldVal = this.state.values[room];
-    // var deltaX = (newVal-oldVal)/2;
-    // var currentValues = this.state.values;
-    // for(var key in this.state.values){
-    //   if(key === room){
-    //     currentValues[key] = newVal;
-    //   }
-    //   else{
-    //     currentValues[key] = currentValues[key]-deltaX;
-    //   }
-    // }
-    // this.setState({values: currentValues});
 
 
     var oldVal = this.state.values[room];
@@ -52,16 +43,14 @@ class SliderMenu extends Component {
     // lock only one direction
     var ifReachLimit = this.reachLimit();
     var lockRoom = ifReachLimit[1];
-    console.log(ifReachLimit[0]);
+    // console.log(ifReachLimit[0]);
 
     // if one slider reaches 0
     if (ifReachLimit[0] === -1){
 
       // if the slider being moved is the one that reaches 0
       if (room === lockRoom){
-        console.log("this bar reaches 0");
-        // console.log(this.state.values[room]);
-        // console.log(this.state.values[lockRoom]);
+        // console.log("this bar reaches 0");
         if (deltaX > 0){ // then it can only go up
           currentPriceAssignment[room] = newVal;
           for (var key in this.state.values){ // the other sliders
@@ -74,7 +63,7 @@ class SliderMenu extends Component {
 
       // if the slider being moved is not the one that reaches 0
       else {
-        console.log("another bar reaches 0");
+        // console.log("another bar reaches 0");
         if (deltaX < 0){ // then it can only go down
           for (var key in this.state.values){
             if(key === room){ // the slider that is currently being pulled
@@ -95,7 +84,7 @@ class SliderMenu extends Component {
 
       // if the slider being moved is the one that reaches total rent
       if (room === lockRoom){
-        console.log("this bar reaches 800");
+        // console.log("this bar reaches 800");
         if (deltaX < 0){ // then it can only go down
           currentPriceAssignment[room] = newVal;
           for (var key in this.state.values){ // the other sliders
@@ -108,7 +97,7 @@ class SliderMenu extends Component {
 
       // if the slider being moved is not the one that reaches total rent
       else {
-        console.log("another bar reaches 800");
+        // console.log("another bar reaches 800");
         if (deltaX > 0){ // then it can only go up
           for (var key in this.state.values){
             if(key === room){ // the slider that is currently being pulled
@@ -124,7 +113,7 @@ class SliderMenu extends Component {
 
     // no slider reaches limit
     else {
-      console.log("normal");
+      // console.log("normal");
       for (var key in this.state.values){
         if(key === room){
           currentPriceAssignment[key] = newVal;
@@ -134,7 +123,7 @@ class SliderMenu extends Component {
         }
       }
     }
-    console.log(currentPriceAssignment);
+    // console.log(currentPriceAssignment);
     this.setState({values: currentPriceAssignment});
   }
 
@@ -149,7 +138,7 @@ class SliderMenu extends Component {
           return (
             <MySlider key={room} room={room} cost={this.state.values[room]}
               totalRent={this.props.totalRent} preference={this.props.preferences[room]}
-              highlight={highlight} update={this.updateValues.bind(this)}
+              highlight={highlight} update={this.updateValues.bind(this)} viewMode={this.state.viewMode}
               />
           )
         });
