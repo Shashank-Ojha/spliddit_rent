@@ -8,7 +8,8 @@ class SliderMenu extends Component {
     super(props);
     this.state = {
       values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
-      viewMode: this.props.viewMode
+      viewMode: this.props.viewMode,
+      customizeOption: this.props.customizeOption
       // algorithm output, can be adjusted
     };
   }
@@ -26,15 +27,22 @@ class SliderMenu extends Component {
     }
     return [0, key];
   }
+
+
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
     if (nextProps.viewMode !== this.state.viewMode) {
       this.setState({ viewMode: nextProps.viewMode });
     }
+
+    if (nextProps.customizeOption !== this.state.customizeOption) {
+      this.setState({ customizeOption: nextProps.customizeOption });
+    }
   }
+
+
   updateValues(room, newVal){
     // room is the slider that is currently being moved
-
 
     var oldVal = this.state.values[room];
     var deltaX = (newVal-oldVal)/2;
@@ -139,6 +147,7 @@ class SliderMenu extends Component {
             <MySlider key={room} room={room} cost={this.state.values[room]}
               totalRent={this.props.totalRent} preference={this.props.preferences[room]}
               highlight={highlight} update={this.updateValues.bind(this)} viewMode={this.state.viewMode}
+              customizeOption={this.state.customizeOption}
               />
           )
         });

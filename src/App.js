@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import SliderMenu from './Components/SliderMenu';
-import ButtonMenu from './Components/ButtonMenu';
-import MultipleView from './Components/MultipleView';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 
 import './App.css';
 import './index.css';
+
+import SliderMenu from './Components/SliderMenu';
+import ButtonMenu from './Components/ButtonMenu';
+import CustomizeButton from './Components/CustomizeButton';
+import MultipleView from './Components/MultipleView';
+
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 
 class App extends Component {
@@ -30,7 +34,8 @@ class App extends Component {
                  "Maximin":"Message 3"    , "Envy-Freeness":"Message 4"},
       displayedMessage: "Message 1",
 
-      viewMode: "Preferences for Their Assignment"
+      viewMode: "Preferences for Their Assignment",
+      customizeOption: ""
     };
   }
 
@@ -42,6 +47,10 @@ class App extends Component {
 
   changeViewMode(name){
     this.setState({viewMode: name});
+  }
+
+  changeCustomizeOption(name){
+    this.setState({customizeOption: name});
   }
 
   render() {
@@ -94,9 +103,15 @@ class App extends Component {
                       </p>
                     </Col>
 
-                    <Col xs={6} md={9}>
+                    <Col xs={6} md={5}>
                         <div className="multipleView">
                           <MultipleView viewMode={this.changeViewMode.bind(this)}/>
+                        </div>
+                    </Col>
+
+                    <Col xs={6} md={4}>
+                        <div className="cutomizeButton">
+                          <CustomizeButton customizeOption={this.changeCustomizeOption.bind(this)}/>
                         </div>
                     </Col>
                   </Row>
@@ -123,6 +138,7 @@ class App extends Component {
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
                             preferences={this.state.preferences} viewMode={this.state.viewMode}
+                            customizeOption={this.state.customizeOption}
                           />
                         </div>
                     </Col>

@@ -52,6 +52,16 @@ class MySlider extends Component {
     }
   }
 
+  alterCustomizeOption(option){
+    if (option !== "Swap Rooms with Someone Else"){
+      return this.state.ticks;
+    }
+    else {
+      
+    }
+  }
+
+
   format(val){
     return "$"+val;
   }
