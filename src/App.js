@@ -22,20 +22,35 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      assignedRoom: "Master Bedroom",
-      assignedCost: 359,
+      people: ["Alice", "Bob", "Claire"],
       rooms: ["Master Bedroom", "Basement", "2nd Floor"],
+      totalRent: 800,
+      allPreferences:
+        {"Alice": {"Master Bedroom": 455, "Basement": 83 , "2nd Floor": 462},
+          "Bob": {"Master Bedroom": 400, "Basement": 100 , "2nd Floor": 500},
+          "Claire": {"Master Bedroom": 500, "Basement": 100 , "2nd Floor": 400}},
+
+      initialAssignment:{"Alice":"Master Bedroom","Bob":"Basement","Claire":"2nd Floor"},
+      prices: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
+      thisPerson: "Alice",
+      currentAssignment: {"Alice":"Master Bedroom","Bob":"Basement","Claire":"2nd Floor"},
+
+
+
+      assignedRoom: "Master Bedroom",
+      assignedCost: 400,
+
       values: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260}, // Algorithm output
       preferences: {"Master Bedroom": 455, "Basement": 83 , "2nd Floor": 462},
-      totalRent: 800,
       value: "Master Bedroom",
       selectedIndex: 0,
       messages: {"Utilitarian":"Message 1", "Utility":"Message 2",
                  "Maximin":"Message 3"    , "Envy-Freeness":"Message 4"},
       displayedMessage: "Message 1",
 
+
       viewMode: "Preferences for Their Assignment",
-      customizeOption: ""
+      customizeOption: 0
     };
   }
 
@@ -49,9 +64,29 @@ class App extends Component {
     this.setState({viewMode: name});
   }
 
-  changeCustomizeOption(name){
-    this.setState({customizeOption: name});
+  changeAssignment(name){ // name of the person that Alice swaps room with
+    var newAssignment = this.state.initialAssignment;
+    console.log("initial",newAssignment);
+    var aliceRoom=newAssignment["Alice"];
+    newAssignment["Alice"]=newAssignment[name];
+    newAssignment[name]=aliceRoom;
+
+    this.setState({currentAssignment:newAssignment});
   }
+
+  // then it's easy to first get each person's preference for each room, make that into a length-3 array,
+  // and pass in into the sliders. just keep a state to update the current array of preferences
+
+  changeCustomizeOption(value){
+    this.setState({customizeOption: value});
+    console.log(this.state.customizeOption);
+
+    if (value===1){this.setState({currentAssignment: this.state.initialAssignment});}
+
+    else if (value===3||value===4){this.changeAssignment(this.state.people[value-2]);}
+    console.log(this.state.currentAssignment);
+  }
+
 
   render() {
     const style = {
@@ -67,6 +102,7 @@ class App extends Component {
           )
         });
       }
+
 
     return (
       <div className="App">
@@ -138,7 +174,7 @@ class App extends Component {
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
                             preferences={this.state.preferences} viewMode={this.state.viewMode}
-                            customizeOption={this.state.customizeOption}
+                            customizeOption={this.state.customizeOption} allPreferences={this.state.allPreferences}
                           />
                         </div>
                     </Col>
@@ -154,7 +190,8 @@ class App extends Component {
                           <SliderMenu assignedRoom={this.state.assignedRoom} assignedCost={this.state.assignedCost}
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
                             preferences={this.state.preferences} highlight={this.state.value}
-                            viewMode={this.state.viewMode}
+                            viewMode={this.state.viewMode} allPreferences={this.state.allPreferences}
+                            customizeOption={this.state.customizeOption}
                           />
                         </div>
                     </Col>
@@ -189,6 +226,12 @@ class App extends Component {
                         </div>
                     </Col>
                   </Row>
+
+                  <Row>
+
+                  </Row>
+
+
               </Grid>
       </div>
     );

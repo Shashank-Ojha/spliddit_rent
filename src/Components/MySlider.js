@@ -52,16 +52,6 @@ class MySlider extends Component {
     }
   }
 
-  alterCustomizeOption(option){
-    if (option !== "Swap Rooms with Someone Else"){
-      return this.state.ticks;
-    }
-    else {
-      
-    }
-  }
-
-
   format(val){
     return "$"+val;
   }
@@ -71,9 +61,9 @@ class MySlider extends Component {
     if(this.props.highlight){
       className = "slider highlighted";
     }
-    console.log(this.props.viewMode);
-    console.log(this.alterViewModeTicks(this.props.viewMode));
-    console.log(this.alterViewModeLabels(this.props.viewMode));
+    // console.log(this.props.viewMode);
+    // console.log(this.alterViewModeTicks(this.props.viewMode));
+    // console.log(this.alterViewModeLabels(this.props.viewMode));
     return (
       <div className={className}>
       <ReactBootstrapSliderFixed

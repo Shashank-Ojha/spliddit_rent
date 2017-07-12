@@ -136,22 +136,46 @@ class SliderMenu extends Component {
   }
 
   render() {
+
+
       let roomSlots;
       if(this.props.rooms){
-        roomSlots = this.props.rooms.map(room => {
-          var highlight = false;
-          if(this.props.highlight === room){
-            highlight = true;
-          }
-          return (
-            <MySlider key={room} room={room} cost={this.state.values[room]}
-              totalRent={this.props.totalRent} preference={this.props.preferences[room]}
-              highlight={highlight} update={this.updateValues.bind(this)} viewMode={this.state.viewMode}
-              customizeOption={this.state.customizeOption}
-              />
-          )
-        });
+        if (this.props.customizeOption!="Swap Rooms with Bob"){
+          roomSlots = this.props.rooms.map(room => {
+            var highlight = false;
+            if(this.props.highlight === room){
+              highlight = true;
+            }
+            return (
+              <MySlider key={room} room={room} cost={this.state.values[room]}
+                totalRent={this.props.totalRent} preference={this.props.preferences[room]}
+                highlight={highlight} update={this.updateValues.bind(this)} viewMode={this.state.viewMode}
+                customizeOption={this.state.customizeOption} allPreferences={this.props.allPreferences}
+                />
+            )
+          });
+        }
+
+        else {
+          var preference=[this.props.preferences[1], this.props.preferences[0], this.props.preferences[2]];
+
+          roomSlots = this.props.rooms.map(room => {
+            var highlight = false;
+            if(this.props.highlight === room){
+              highlight = true;
+            }
+            return (
+              <MySlider key={room} room={room} cost={this.state.values[room]}
+                totalRent={this.props.totalRent} preference={preference[room]}
+                highlight={highlight} update={this.updateValues.bind(this)} viewMode={this.state.viewMode}
+                customizeOption={this.state.customizeOption} allPreferences={this.props.allPreferences}
+                />
+            )
+          });
+        }
       }
+
+
       return (
       <div className="sliderMenu">
           {roomSlots}
