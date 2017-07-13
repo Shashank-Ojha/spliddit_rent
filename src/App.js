@@ -33,8 +33,10 @@ class App extends Component {
       initialAssignment:{"Alice":"Master Bedroom","Bob":"Basement","Claire":"2nd Floor"},
       prices: {"Master Bedroom": 359, "Basement": 181 , "2nd Floor": 260},
       thisPerson: "Alice",
-      currentAssignment: {"Alice":"Master Bedroom","Bob":"Basement","Claire":"2nd Floor"},
 
+      // currentAssignment keeps track of the current assignment statue
+      currentAssignment: {"Alice":"Master Bedroom","Bob":"Basement","Claire":"2nd Floor"},
+      currentPreference:{"Master Bedroom": 455, "Basement": 100 , "2nd Floor": 400},
 
 
       assignedRoom: "Master Bedroom",
@@ -75,13 +77,30 @@ class App extends Component {
   }
 
   // then it's easy to first get each person's preference for each room, make that into a length-3 array,
-  // and pass in into the sliders. just keep a state to update the current array of preferences
+  // and pass it into the sliders. just keep a state to update the current array of preferences
+
+  getPreferenceList(){
+    var preferenceList = this.state.currentPreference;
+    var assignedRoom,name,i,preferenceValue;
+    for (i=0; i<this.state.people.length; i++){
+      name=this.state.people[i];
+      assignedRoom=this.state.currentAssignment[name];
+      preferenceValue=this.state.allPreferences[name][assignedRoom];
+      preferenceList[assignedRoom]=preferenceValue;
+    }
+
+    console.log(preferenceList);
+    this.setState({currentPreference:preferenceList});
+
+  }
 
   changeCustomizeOption(value){
     this.setState({customizeOption: value});
     console.log(this.state.customizeOption);
 
-    if (value===1){this.setState({currentAssignment: this.state.initialAssignment});}
+    this.getPreferenceList(); // update the input preference list to the sliders
+
+    if (value===2){this.setState({currentAssignment: this.state.initialAssignment});}
 
     else if (value===3||value===4){this.changeAssignment(this.state.people[value-2]);}
     console.log(this.state.currentAssignment);
@@ -175,6 +194,7 @@ class App extends Component {
                             rooms={this.state.rooms} values={this.state.values} totalRent={this.state.totalRent}
                             preferences={this.state.preferences} viewMode={this.state.viewMode}
                             customizeOption={this.state.customizeOption} allPreferences={this.state.allPreferences}
+                            preferenceList={this.state.currentPreference}
                           />
                         </div>
                     </Col>
@@ -192,6 +212,7 @@ class App extends Component {
                             preferences={this.state.preferences} highlight={this.state.value}
                             viewMode={this.state.viewMode} allPreferences={this.state.allPreferences}
                             customizeOption={this.state.customizeOption}
+                            preferenceList={this.state.currentPreference}
                           />
                         </div>
                     </Col>

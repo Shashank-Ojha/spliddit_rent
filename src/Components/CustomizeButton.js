@@ -19,13 +19,13 @@ class CustomizeButton extends Component {
     };
   }
 
-  makeFunction(name) {
-    var changeActive = (function(event){
-      this.setState({activeButton: name});
-      this.props.customizeOption(name);
-    });
-    return changeActive;
-  }
+  // makeFunction(name) {
+  //   var changeActive = (function(event){
+  //     this.setState({activeButton: name});
+  //     this.props.customizeOption(name);
+  //   });
+  //   return changeActive;
+  // }
 
   decideBGColor(name){
     if(name == this.state.activeButton){
