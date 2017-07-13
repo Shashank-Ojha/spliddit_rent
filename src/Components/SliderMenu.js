@@ -138,6 +138,7 @@ class SliderMenu extends Component {
   render() {
 
       let roomSlots;
+      //console.log(this.props.preferenceList);
       if(this.props.rooms){
         roomSlots = this.props.rooms.map(room => {
           var highlight = false;

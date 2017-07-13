@@ -15,7 +15,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-
+import $ from 'jquery';
 
 class App extends Component {
 
@@ -67,8 +67,7 @@ class App extends Component {
   }
 
   changeAssignment(name){ // name of the person that Alice swaps room with
-    var newAssignment = this.state.initialAssignment;
-    console.log("initial",newAssignment);
+    var newAssignment = $.extend({}, this.state.currentAssignment);
     var aliceRoom=newAssignment["Alice"];
     newAssignment["Alice"]=newAssignment[name];
     newAssignment[name]=aliceRoom;
@@ -89,21 +88,21 @@ class App extends Component {
       preferenceList[assignedRoom]=preferenceValue;
     }
 
-    console.log(preferenceList);
+    //console.log(preferenceList);
     this.setState({currentPreference:preferenceList});
 
   }
 
   changeCustomizeOption(value){
+    console.log(value);
     this.setState({customizeOption: value});
-    console.log(this.state.customizeOption);
+
 
     this.getPreferenceList(); // update the input preference list to the sliders
 
     if (value===2){this.setState({currentAssignment: this.state.initialAssignment});}
 
     else if (value===3||value===4){this.changeAssignment(this.state.people[value-2]);}
-    console.log(this.state.currentAssignment);
   }
 
 
@@ -122,6 +121,8 @@ class App extends Component {
         });
       }
 
+      console.log(this.state.customizeOption);
+      console.log(this.state.currentAssignment);
 
     return (
       <div className="App">
