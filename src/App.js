@@ -130,10 +130,13 @@ class App extends Component {
                 <br />
 
                 <Row className="show-grid">
-                  <Col xs={12} md={4}>
+                  <Col xs={12} md={2}>
                     <h4>Fairness Properties</h4>
                     <p> See how your results were made through these algorithm properties </p>
                     <ButtonMenu />
+                  </Col>
+
+                  <Col xs={12} md={1}>
                   </Col>
 
                   <Col xs={6} md={8}>

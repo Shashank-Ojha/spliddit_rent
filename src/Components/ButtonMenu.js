@@ -20,7 +20,7 @@ class ButtonMenu extends Component {
 
   decideBGColor(name){
     if(name === this.state.activeButton){
-      return "#a4c639";
+      return "pink";
     }
     return "";
   }
@@ -42,6 +42,7 @@ class ButtonMenu extends Component {
                 hoverColor="#8AA62F"
                 style={style}
               />
+              <p>How much you Saved</p>
               <br />
               <FlatButton
                 label="MAXIMIN"
@@ -50,6 +51,7 @@ class ButtonMenu extends Component {
                 hoverColor="#8AA62F"
                 style={style}
               />
+              <p>Optimal amount of Savings as a whole</p>
               <br />
               <FlatButton
                 label="ENVY-FREENESS"
@@ -58,6 +60,7 @@ class ButtonMenu extends Component {
                 hoverColor="#8AA62F"
                 style={style}
               />
+              <p>Each person gets the best deal based of his or her preference</p>
             </div>
           </MuiThemeProvider>
         </div>

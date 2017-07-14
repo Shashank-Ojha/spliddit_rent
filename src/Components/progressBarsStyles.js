@@ -1,6 +1,6 @@
 var style =  {
   minWidth: 9,
-  backgroundColor: "green",
+  backgroundColor: "grey",
   borderRadius:11,
   height:36
 }
