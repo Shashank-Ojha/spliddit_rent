@@ -6,6 +6,7 @@ import './index.css';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ButtonMenu from './Components/ButtonMenu';
 
 import ProgressBars from './Components/ProgressBars';
 
@@ -112,12 +113,7 @@ class App extends Component {
       <Grid>
                 <Row className="show-grid">
                   <Col xs={12} md={8}>
-                    <h1>Explore Your Results</h1>
-                  </Col>
-
-                  <Col xs={6} md={4}>
-                    <h4>Diamond Ring</h4>
-                    <h4>Gold Watch</h4>
+                    <h1>Explore Your Results, Grace</h1>
                   </Col>
                 </Row>
 
@@ -125,24 +121,21 @@ class App extends Component {
 
                 <Row className="show-grid">
                   <Col xs={12} md={6}>
-                    <h4>Division Algorithms for Goods</h4>
-                    <p> The rent calculator helps roomates to fairly share rent
-                    when moving into a new house or apartment. This is
-                    especially useful when bedrooms differ in size, closet
-                    space, bathrooms, and more. </p>
-                  </Col>
-                  <Col xs={6} md={2}>
-                  </Col>
-                  <Col xs={6} md={4}>
+                    <h4>SIMULATION DETAILS GOODS:</h4>
+                    <p> Spliddit Task </p>
                   </Col>
                 </Row>
 
+                <br />
+                <br />
 
                 <Row className="show-grid">
                   <Col xs={12} md={4}>
                     <h4>Fairness Properties</h4>
-                    <p> See how it works </p>
+                    <p> See how your results were made through these algorithm properties </p>
+                    <ButtonMenu />
                   </Col>
+
                   <Col xs={6} md={8}>
                     <h4>Results</h4>
                     <p> To adjust results, click on the preference buttons </p>
@@ -166,8 +159,7 @@ class App extends Component {
 
                 <Row className="show-grid">
                   <Col xs={6} md={6}>
-                    <h1>Expanded View</h1>
-                    <p>Some Text</p>
+
                   </Col>
 
                   <Col xs={6} md={6}>
