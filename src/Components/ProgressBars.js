@@ -20,7 +20,7 @@ class ProgressBars extends Component {
           assigned = true;
         }
         return (
-          <Col xs={1} md={1}><SingleProgressBar key={idx} ifAssigned={assigned}/></Col>
+          <Col xs={1} md={1} key={idx}><SingleProgressBar key={idx} ifAssigned={assigned}/></Col>
         )
       });
     }

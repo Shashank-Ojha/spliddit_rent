@@ -18,7 +18,7 @@ class SingleProgressBar extends Component {
       <div className="SingleProgressBar">
         <FlatButton
           backgroundColor={"green"}
-          label={""}
+          label={" "}
           style={style}
           fullWidth={false}
         />

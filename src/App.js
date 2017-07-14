@@ -13,6 +13,9 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
+// import injectTapEventPlugin from 'react-tap-event-plugin';
+// injectTapEventPlugin();
+
 class App extends Component {
 
   constructor(props) {
@@ -106,17 +109,96 @@ class App extends Component {
 
     return (
       <div className="App">
-              <Grid>
-                <Row>
+      <Grid>
+                <Row className="show-grid">
+                  <Col xs={12} md={8}>
+                    <h1>Explore Your Results</h1>
+                  </Col>
 
-                  <div>
-                    <MuiThemeProvider>
-                      <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
-                    </MuiThemeProvider>
-                  </div>
-
+                  <Col xs={6} md={4}>
+                    <h4>Diamond Ring</h4>
+                    <h4>Gold Watch</h4>
+                  </Col>
                 </Row>
-              </Grid>
+
+                <hr />
+
+                <Row className="show-grid">
+                  <Col xs={12} md={6}>
+                    <h4>Division Algorithms for Goods</h4>
+                    <p> The rent calculator helps roomates to fairly share rent
+                    when moving into a new house or apartment. This is
+                    especially useful when bedrooms differ in size, closet
+                    space, bathrooms, and more. </p>
+                  </Col>
+                  <Col xs={6} md={2}>
+                  </Col>
+                  <Col xs={6} md={4}>
+                  </Col>
+                </Row>
+
+
+                <Row className="show-grid">
+                  <Col xs={12} md={4}>
+                    <h4>Fairness Properties</h4>
+                    <p> See how it works </p>
+                  </Col>
+                  <Col xs={6} md={8}>
+                    <h4>Results</h4>
+                    <p> To adjust results, click on the preference buttons </p>
+
+                    <Grid>
+
+                    <Row>
+
+                      <div>
+                        <MuiThemeProvider>
+                          <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
+                        </MuiThemeProvider>
+                      </div>
+
+                    </Row>
+
+                    </Grid>
+                  </Col>
+                </Row>
+
+
+                <Row className="show-grid">
+                  <Col xs={6} md={6}>
+                    <h1>Expanded View</h1>
+                    <p>Some Text</p>
+                  </Col>
+
+                  <Col xs={6} md={6}>
+                  </Col>
+                </Row>
+
+                <br/>
+
+                <Row className="show-grid">
+                  <Col xs={6} md={2}>
+                  </Col>
+
+                  <Col xs={6} md={5}>
+                  </Col>
+
+                  <Col xs={6} md={5}>
+                  </Col>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col xs={6} md={2}>
+                  </Col>
+
+                  <Col xs={6} md={5}>
+                  </Col>
+
+                  <Col xs={6} md={5}>
+                  </Col>
+                </Row>
+
+          </Grid>
       </div>
     );
   }
