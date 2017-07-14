@@ -37,6 +37,16 @@ class App extends Component {
     this.setState({displayedMessage: this.state.messages[type]});
   }
 
+  make01s(assignedNum, total){
+    var i;
+    var result=new Array(total);
+    for (i=0; i<total; i++){
+      if (i<assignedNum) {result[i]=1;}
+      else {result[i]=0;}
+    }
+    return result;
+  }
+
   calculateBurden(){
     var calculate=(
       function(event){
@@ -92,14 +102,20 @@ class App extends Component {
 
 
   render() {
-    this.calculateBurden().bind(this);
+    //this.calculateBurden().bind(this);
 
     return (
       <div className="App">
               <Grid>
-                <MuiThemeProvider>
-                  <ProgressBars />
-                </MuiThemeProvider>
+                <Row>
+
+                  <div>
+                    <MuiThemeProvider>
+                      <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
+                    </MuiThemeProvider>
+                  </div>
+
+                </Row>
               </Grid>
       </div>
     );
