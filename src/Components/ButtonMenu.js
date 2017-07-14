@@ -39,7 +39,7 @@ class ButtonMenu extends Component {
                 label="EQUITABILITY"
                 onTouchTap={this.makeFunction("EQUITABILITY").bind(this)}
                 backgroundColor={this.decideBGColor("EQUITABILITY")}
-                hoverColor="#8AA62F"
+                hoverColor="grey"
                 style={style}
               />
               <p>How much you Saved</p>
@@ -48,7 +48,7 @@ class ButtonMenu extends Component {
                 label="MAXIMIN"
                 onTouchTap={this.makeFunction("MAXIMIN").bind(this)}
                 backgroundColor={this.decideBGColor("MAXIMIN")}
-                hoverColor="#8AA62F"
+                hoverColor="grey"
                 style={style}
               />
               <p>Optimal amount of Savings as a whole</p>
@@ -57,7 +57,7 @@ class ButtonMenu extends Component {
                 label="ENVY-FREENESS"
                 onTouchTap={this.makeFunction("ENVY-FREENESS").bind(this)}
                 backgroundColor={this.decideBGColor("ENVY-FREENESS")}
-                hoverColor="#8AA62F"
+                hoverColor="grey"
                 style={style}
               />
               <p>Each person gets the best deal based of his or her preference</p>

@@ -133,30 +133,58 @@ class App extends Component {
                   <Col xs={12} md={2}>
                     <h4>Fairness Properties</h4>
                     <p> See how your results were made through these algorithm properties </p>
-                    <ButtonMenu />
                   </Col>
 
                   <Col xs={12} md={1}>
                   </Col>
 
-                  <Col xs={6} md={8}>
-                    <h4>Results</h4>
-                    <p> To adjust results, click on the preference buttons </p>
+                  <Col xs={6} md={4}>
+                    <h4>INTERACTIVE</h4>
+                    <p> See how changing the number of assignments to each person
+                    affects the burden load! </p>
+                  </Col>
 
+                  <Col xs={6} md={4}>
+                    <h4>SUGGEST CHANGES TO RESULTS</h4>
+                    <p> Use the buttons to toggle to change the algorithms decision.
+                    You can change anyones buttons. See how that change affects
+                    the group as a whole!  </p>
+                  </Col>
+
+                </Row>
+
+                <Row>
+                  <Col xs={12} md={2}>
+                    <ButtonMenu />
+                  </Col>
+
+                  <Col xs={12} md={9}>
                     <Grid>
 
-                    <Row>
+                      <Row>
+                        <Col xs={12} md={3}>
+                          <h2>Alice</h2>
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+                        </Col>
 
-                      <div>
-                        <MuiThemeProvider>
-                          <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
-                        </MuiThemeProvider>
-                      </div>
+                        <Col xs={12} md={3}>
+                          <h2>Chris</h2>
+                        </Col>
 
-                    </Row>
+                        <Col xs={12} md={3}>
+                          <h2>Brian</h2>
+                        </Col>
+                      </Row>
 
                     </Grid>
                   </Col>
+
                 </Row>
 
 
