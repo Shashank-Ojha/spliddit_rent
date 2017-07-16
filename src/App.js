@@ -51,6 +51,7 @@ class App extends Component {
     return result;
   }
 
+
   calculateBurden(){
     var calculate=(
       function(event){
@@ -158,6 +159,9 @@ class App extends Component {
                     <ButtonMenu />
                   </Col>
 
+                  <Col xs={12} md={1}>
+                  </Col>
+
                   <Col xs={12} md={9}>
                     <Grid>
 
@@ -167,18 +171,128 @@ class App extends Component {
                           <Row>
                             <div>
                               <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(3,9)}/>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(6,14)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(7,7)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
                               </MuiThemeProvider>
                             </div>
                           </Row>
                         </Col>
 
+                        <Col xs={12} md={1}>
+                        </Col>
+
                         <Col xs={12} md={3}>
                           <h2>Chris</h2>
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,14)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,7)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(2,2)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(2,2)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+                        </Col>
+
+                        <Col xs={12} md={1}>
                         </Col>
 
                         <Col xs={12} md={3}>
                           <h2>Brian</h2>
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(6,14)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,7)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
+
+                          <br />
+
+                          <Row>
+                            <div>
+                              <MuiThemeProvider>
+                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
+                              </MuiThemeProvider>
+                            </div>
+                          </Row>
                         </Col>
                       </Row>
 
