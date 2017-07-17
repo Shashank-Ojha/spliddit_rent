@@ -20,15 +20,15 @@ class ProgressBars extends Component {
           assigned = true;
         }
         return (
-          <Col xs={1} md={1} key={idx}><SingleProgressBar key={idx} ifAssigned={assigned}/></Col>
+          <Col xs={12} md={3} key={idx}><SingleProgressBar key={idx} ifAssigned={assigned}/></Col>
         )
       });
     }
 
     return (
-    <div className="ProgressBars">
-        {buttons}
-    </div>
+      <div className="ProgressBars">
+          {buttons}
+      </div>
     );
   }
 }

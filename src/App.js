@@ -8,14 +8,13 @@ import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ButtonMenu from './Components/ButtonMenu';
 
-import ProgressBars from './Components/ProgressBars';
+import ViewResult from './Components/ViewResult';
+
 
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-// injectTapEventPlugin();
 
 class App extends Component {
 
@@ -30,7 +29,13 @@ class App extends Component {
       person:"Alice",
       preferences:[4, 1/3, 3],
       assignment:[5,0,7,0],
-      burden:[0,0,0,0],
+
+      assignmentMatrix:[[6,2,6],
+                        [7,0,0],
+                        [0,2,0],
+                        [0,2,0]],
+
+      burden:[0,0,0,0], // this is the part about calculating the burden load. Will do on Monday.
       percentage:0
     };
   }
@@ -39,16 +44,6 @@ class App extends Component {
 
   changeMessage(type){
     this.setState({displayedMessage: this.state.messages[type]});
-  }
-
-  make01s(assignedNum, total){
-    var i;
-    var result=new Array(total);
-    for (i=0; i<total; i++){
-      if (i<assignedNum) {result[i]=1;}
-      else {result[i]=0;}
-    }
-    return result;
   }
 
 
@@ -168,133 +163,21 @@ class App extends Component {
                       <Row>
                         <Col xs={12} md={3}>
                           <h2>Alice</h2>
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(6,14)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(7,7)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
                         </Col>
-
                         <Col xs={12} md={1}>
                         </Col>
-
                         <Col xs={12} md={3}>
                           <h2>Chris</h2>
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,14)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,7)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(2,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(2,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
                         </Col>
-
                         <Col xs={12} md={1}>
                         </Col>
-
                         <Col xs={12} md={3}>
                           <h2>Brian</h2>
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(6,14)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,7)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
-
-                          <br />
-
-                          <Row>
-                            <div>
-                              <MuiThemeProvider>
-                                <ProgressBars buttonStatus={this.make01s.bind(this)(0,2)}/>
-                              </MuiThemeProvider>
-                            </div>
-                          </Row>
                         </Col>
                       </Row>
+
+                      <ViewResult names={this.state.people} tasks={this.state.tasks}
+                        assignments={this.state.assignmentMatrix} total={this.state.amount}/>
 
                     </Grid>
                   </Col>
