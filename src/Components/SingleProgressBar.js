@@ -16,8 +16,10 @@ class SingleProgressBar extends Component {
 
   decideBGColor(ifAssigned){
     if(this.state.ifAssigned){
+      console.log("1");
       return "pink";
     }
+    console.log("0");
     return "grey";
   }
 

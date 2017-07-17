@@ -22,6 +22,7 @@ class TaskRow extends Component {
       if (i<assignedNum) {result[i]=1;}
       else {result[i]=0;}
     }
+    console.log(result);
     return result;
   }
 
@@ -30,12 +31,12 @@ class TaskRow extends Component {
     let TaskRow;
     var makeCol = function(name, idx){
       return (
-        <div>
-          <Col xs={6} md={2} key={name}>
+        <div key={idx+1}>
+          <Col xs={6} md={2} key={idx}>
             <ProgressBars
               buttonStatus={this.make01s.bind(this)(this.state.assignment[idx],this.state.total)}/>
           </Col>
-          <Col xs={6} md={2}>
+          <Col xs={6} md={2} key={idx+2}>
           </Col>
         </div>
       )

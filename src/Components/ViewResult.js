@@ -31,7 +31,7 @@ class ViewResult extends Component {
     let taskGrid;
     var makeRow = function(task, idx) {
       return (
-        <div>
+        <div key={idx+1}>
           <Row key={idx}>
             <TaskRow task={this.state.tasks[idx]} thisTotal={this.state.total[idx]}
               assignment={this.state.assignments[idx]} names={this.state.names} />
