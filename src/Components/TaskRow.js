@@ -8,7 +8,7 @@ class TaskRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      task: this.props.tasks,
+      task: this.props.task,
       total: this.props.thisTotal,
       assignment: this.props.assignment,
       names: this.props.names
@@ -30,13 +30,16 @@ class TaskRow extends Component {
   render(){
     let TaskRow;
     var makeCol = function(name, idx){
+      var display=this.state.assignment[idx].toString()+"/"+this.state.total.toString();
       return (
         <div key={idx+1}>
           <Col xs={6} md={2} key={idx}>
+            {this.state.task}
             <ProgressBars
               buttonStatus={this.make01s.bind(this)(this.state.assignment[idx],this.state.total)}/>
           </Col>
-          <Col xs={6} md={2} key={idx+2}>
+          <Col xs={6} md={2} key={idx+3}>
+            {display}
           </Col>
         </div>
       )

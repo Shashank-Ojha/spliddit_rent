@@ -157,7 +157,7 @@ class App extends Component {
                   <Col xs={12} md={1}>
                   </Col>
 
-                  <Col xs={12} md={9}>
+                  <Col xs={12} md={12}>
                     <Grid>
 
                       <Row>
