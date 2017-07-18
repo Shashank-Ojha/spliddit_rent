@@ -10,7 +10,6 @@ class ProgressBars extends Component {
     };
   }
 
-
   render(){
     let buttons;
     if(this.props.buttonStatus){
