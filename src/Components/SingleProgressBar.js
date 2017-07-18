@@ -25,12 +25,14 @@ class SingleProgressBar extends Component {
 
   render() {
 
+    const computedstyle = Object.assign({"backgroundColor":this.decideBGColor(this.props.ifAssigned)},style.custom)
+
     return (
       <div className="SingleProgressBar">
         <MuiThemeProvider>
           <FlatButton
             label={" "}
-            style={style}
+            style={computedstyle}
             fullWidth={false}
             backgroundColor={this.decideBGColor(this.props.ifAssigned)}
           />
