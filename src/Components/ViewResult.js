@@ -8,22 +8,22 @@ import TaskRow from './TaskRow';
 class ViewResult extends Component {
   constructor(props) {
     super(props);
+
+    var matrix = this.props.tasks.map(function(val)
+  {
+    return val;
+  });
+
+
     this.state = {
       //activeButton: this.props.assignedTo,
       tasks: this.props.tasks,
       assignments: this.props.assignments,
       names: this.props.names,
-      total: this.props.total
+      total: this.props.total,
+      matrix: matrix
     };
   }
-
-  // changeActiveState(newAssignment){
-  //   var changeActive = (function(event){
-  //     this.setState({activeButton: newAssignment});
-  //     this.props.changeAssignedTo(this.props.rowNum, newAssignment);
-  //   });
-  //   return changeActive;
-  // }
 
 
   render(){

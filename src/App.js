@@ -31,8 +31,8 @@ class App extends Component {
       assignment:[5,0,7,0],
 
       assignmentMatrix:[[6,2,6],
-                        [7,0,0],
-                        [0,2,0],
+                        [2,0,0],
+                        [0,7,0],
                         [0,2,0]],
 
       burden:[0,0,0,0], // this is the part about calculating the burden load. Will do on Monday.
@@ -176,8 +176,12 @@ class App extends Component {
                         </Col>
                       </Row>
 
-                      <ViewResult names={this.state.people} tasks={this.state.tasks}
-                        assignments={this.state.assignmentMatrix} total={this.state.amount}/>
+                      <ViewResult
+                        names={this.state.people}
+                        tasks={this.state.tasks}
+                        assignments={this.state.assignmentMatrix}
+                        total={this.state.amount}
+                      />
 
                     </Grid>
                   </Col>
