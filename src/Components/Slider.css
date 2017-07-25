@@ -1,0 +1,75 @@
+.slider{
+  padding-left: 1.5px;
+  padding-right: 1.5px;
+  width: 29%;
+}
+
+.slider-handle{
+  position: absolute;
+  top: 0;
+  width: 21px;
+  height: 6px;
+  background-image: linear-gradient(to bottom,#d488af 0,#0480be 100%);
+}
+
+.slider.slider-vertical .slider-tick, .slider.slider-vertical .slider-handle {
+    margin-top: -4px;
+}
+
+.slider-handle.round {
+  border-radius: 0%;
+}
+
+.sliderBar{
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+div.slider-selection.tick-slider-selection{
+  background: grey;
+}
+.slider-track-high {
+	background: #337ab7;
+}
+
+.slider.highlighted .slider-track-high {
+	background: yellow;
+}
+
+.slider-track-high {
+    background: #bb5ba2;
+}
+
+div.slider-selection.tick-slider-selection {
+    background: #e7b0c4;
+}
+
+.slider-rangeHighlight {
+    background: #f1df0b;
+}
+
+div.slider-tick.round{
+  background-image: linear-gradient(to bottom, black 0, grey 100%)
+}
+
+.slider.slider-vertical .slider-track {
+    width: 8px;
+    height: 100%;
+    left: 36%;
+    top: -1px;
+}
+
+.slider-tick.round {
+  border-radius:0%;
+  width:25px;
+  height: 3px;
+  background: #9B7EF6;
+}
+
+.slider.slider-vertical .slider-track {
+    width: 8px;
+    height: 100%;
+    left: 42%;
+    top: -1px;
+}
