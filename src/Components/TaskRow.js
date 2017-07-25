@@ -45,12 +45,12 @@ class TaskRow extends Component {
 
     if (choice===1){
       console.log("add a unit");
-      newMatrix[j][clicked+1] += choice;
+      newMatrix[j][clicked] += choice;
     }
 
     else if (choice===-1){
       console.log("minus a unit");
-      newMatrix[j][clicked] += choice;
+      newMatrix[j][clicked-1] += choice;
     }
 
     // this.setState({matrix:newMatrix});
@@ -63,7 +63,7 @@ class TaskRow extends Component {
     newCurrentTotal += choice;
     // this.setState({currentTotal:newCurrentTotal});
 
-    var newDelta = this.state.currentTotal-this.state.thisTotal;
+    var newDelta = newCurrentTotal-this.state.total;
     this.setState({matrix:newMatrix, currentAssignment:newCurrentAssignment, currentTotal:newCurrentTotal, delta:newDelta})
     // this.setState({delta:newDelta}); // delta <=0 always
   }
@@ -75,9 +75,9 @@ class TaskRow extends Component {
   // 2. depending on the original assignment status of the button, change the bg color of the button (while updating the matrix in 1.)
   // 3. depending on 2, also update currentTotal
 
-  display(){
-    return (this.state.delta===0);
-  }
+  // display(){
+  //   return (this.state.delta===0);
+  // }
 
 
   render(){
@@ -109,6 +109,7 @@ class TaskRow extends Component {
     var sumAssignment=this.state.currentTotal.toString()+"/"+this.state.total.toString();
     console.log("matrix", this.state.matrix);
     console.log("sumAssignment", sumAssignment);
+    console.log("delta", this.state.delta);
 
     return (
     <div className="TaskRow">
